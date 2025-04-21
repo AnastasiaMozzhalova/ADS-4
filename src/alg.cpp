@@ -1,57 +1,49 @@
+
 int countPairs1(int* arr, int len, int value) {
-  int pairs = 0;
-  for (int first = 0; first < len; first++) {
-    for (int second = first + 1; second < len; second++) {
-      if (arr[first] + arr[second] == value) {
-        pairs++;
-      }
+    int count = 0;
+    for (int i = 0; i < len - 1; ++i) {
+        if (i > 0 && arr[i] == arr[i - 1]) continue;
+        for (int j = i + 1; j < len; ++j) {
+            if (j > i + 1 && arr[j] == arr[j - 1]) continue;
+            if (arr[i] + arr[j] == value) {
+                ++count;
+            } else if (arr[i] + arr[j] > value) {
+                break;
+            }
+        }
     }
-  }
-  return pairs;
+    return count;
 }
 int countPairs2(int* arr, int len, int value) {
-  int res = 0;
-  int right = len - 1;
-  while (right >= 0 && arr[right] > value) {
-    right--;
-  }
-  for (int left = 0; left < right; left++) {
-    int cur = arr[left];
-    for (int j = right; j > left; j--) {
-      if (cur + arr[j] == value) {
-        res++;
-      }
+    int count = 0;
+    int left = 0, right = len - 1;
+    while (left < right) {
+        int sum = arr[left] + arr[right];
+        if (sum == value) {
+            ++count;
+            int lval = arr[left], rval = arr[right];
+            while (left < right && arr[left] == lval) ++left;
+            while (left < right && arr[right] == rval) --right;
+        } else if (sum < value) {
+            ++left;
+        } else {
+            --right;
+        }
     }
-  }
-  return res;
-}
-int findMatches(int* array, int start, int end, int target) {
-  int mat = 0;
-  while (start <= end) {
-    int middle = start + (end - start) / 2;
-    if (array[middle] == target) {
-      mat++;
-      for (int i = middle - 1; i >= start && array[i] == target; i--) {
-        mat++;
-      }
-      for (int i = middle + 1; i <= end && array[i] == target; i++) {
-        mat++;
-      }
-      return mat;
-    } else if (array[middle] < target) {
-      start = middle + 1;
-    } else {
-      end = middle - 1;
-    }
-  }
-  return mat;
+    return count;
 }
 
 int countPairs3(int* arr, int len, int value) {
-  int total = 0;
-  for (int i = 0; i < len - 1; i++) {
-    int needed = value - arr[i];
-    total += findMatches(arr, i + 1, len - 1, needed);
-  }
-  return total;
+    int count = 0;
+    for (int i = 0; i < len - 1; ++i) {
+        if (i > 0 && arr[i] == arr[i - 1]) continue;
+        int target = value - arr[i];
+        const int* pos = std::lower_bound(arr + i + 1, arr + len, target);
+        if (pos != arr + len && *pos == target) {
+            if (pos == arr + i + 1 || *(pos - 1) != target) {
+                ++count;
+            }
+        }
+    }
+    return count;
 }

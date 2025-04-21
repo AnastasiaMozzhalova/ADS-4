@@ -27,7 +27,7 @@ int countPairs2(int *arr, int len, int value) {
   }
 return count;
 }
-int binSearc(int* arr, int left, int right, int target, bool find_first) {
+int binarySearch(int* arr, int left, int right, int target, bool find_first) {
     int result = -1;
     while (left <= right) {
       int mid = left + (right - left) / 2;
@@ -51,9 +51,9 @@ int countPairs3(int *arr, int len, int value) {
     int count = 0;
     for (int i = 0; i < len; ++i) {
       int complement = value - arr[i];
-      int first = binSearc(arr, i + 1, len - 1, complement, true);
+      int first = binarySearch(arr, i + 1, len - 1, complement, true);
       if (first != -1) {
-        int last = binSearc(arr, first, len - 1, complement, false);
+        int last = binarySearch(arr, first, len - 1, complement, false);
         count += last - first + 1;
       }
     }

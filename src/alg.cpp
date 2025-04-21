@@ -1,4 +1,6 @@
 // Copyright 2021 NNTU-CS
+#include <iostream>
+#include <unordered_set>
 int countPairs1(int *arr, int len, int value) {
   int count = 0;
   for (int i = 0; i < len ; ++i) {

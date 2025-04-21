@@ -1,5 +1,5 @@
 // Copyright 2021 NNTU-CS
-#include <iostream>
+
 #include <unordered_set>
 
 int countPairs1(const int *arr, int len, int value) {

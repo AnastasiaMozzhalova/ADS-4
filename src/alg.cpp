@@ -53,7 +53,7 @@ int countPairs3(const int *arr, int len, int value) {
  int count = 0;
   for (int i = 0; i < len; ++i) {
     int complement = value - arr[i];
-    if (binarySearch(arr, len, complement, i) != -1) {
+    if (bin(arr, len, complement, i) != -1) {
       count++;
     }
   }

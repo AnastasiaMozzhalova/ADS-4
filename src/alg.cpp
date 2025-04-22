@@ -1,3 +1,4 @@
+// Copyright 2021 NNTU-CS
 int countPairs1(int *arr, int size, int targetSum) {
   int pairCount = 0;
   for (int i = 0; i < size - 1; i++) {
